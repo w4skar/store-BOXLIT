@@ -1,0 +1,301 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="indexTienda.master.cs" Inherits="store_BOXLIT.indexTienda" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tienda BOXLIT</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    
+    <!-- Favicons/ Iconos de pestaña -->
+    <link href="img/favicon-boxlit.png" rel="icon"/>
+    <link href="img/favicon-boxlit.png" rel="apple-touch-icon"/>
+
+    <!-- Estilos -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="css/slick.css"/>
+	<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+	<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link type="text/css" rel="stylesheet" href="css/styleTienda.css"/>
+
+	<!-- Ajuste de logotipo -->
+	<style type="text/css">
+            .auto-style1 {
+                width: 183px;
+                height: 57px;
+            }
+     </style>
+
+ </head>
+<body>
+  <form id="form1" runat="server">
+        
+	    <!-- Contenido header -->
+	    <header>
+			    <div id="top-header">
+				    <div class="container">
+					    <ul class="header-links pull-left">
+						    <li><a ><i class="fa fa-phone"></i> (+54) 387 415 8782</a></li>
+						    <li><a ><i class="fa fa-envelope-o"></i> info@boxlitcomputers.com</a></li>
+						    <li><a ><i class="fa fa-map-marker"></i> Av. Belgrano 1800</a></li>
+					    </ul>
+					    <ul class="header-links pull-right">
+						    <li><a ><i class="fa fa-dollar"></i> ARS</a></li>
+						    <%--<li><a href="#"><i class="fa fa-user-o"></i> Mi Cuenta</a></li>--%>
+                            <li> <i class="fa fa-user-o"></i><a href="~/paginaTienda/clientePerfil.aspx" runat="server" id="nombreusuario" > </a></li> 
+                            <li><a href="loginUsuarios.aspx" id="Cerrar" runat="server" visible="false" ><i class="fa fa-close" ></i>Cerrar Sesión</a></li>
+
+					    </ul>
+				    </div>
+			    </div>
+
+			<!-- Menu header -->
+            <div id="header">
+				<div class="container">
+					<div class="row">
+						<!-- Logotipo -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="../index.aspx" class="logo">
+									<img src="../img/logotipo-boxlit.png" class="auto-style1">
+								</a>
+							</div>
+						</div>
+						<!-- Buscador de la pagina -->
+						<div class="col-md-6">
+							<div class="header-search">
+									<input class="input" runat="server" id="textBuscarWeb" style="width:490px"  placeholder="Que desea buscar ...">
+                                    <asp:Button ID="btnBuscarWeb" runat="server" BackColor="#4ECDC4" ForeColor="White" Height="39px" Width="50px" Text=">>" OnClick="btnBuscarWeb_Click" />
+							</div>
+						</div>
+
+						<!-- Cuenta de cliente/ Cuenta perfil -->
+                        <div class="col-md-3 clearfix">
+							<div class="header-ctn">
+								<!-- Mi pedido -->
+								<%--<div>
+									<a href="#">
+										<i class="fa fa-truck right"></i>
+										<span>Mi Pedido</span>
+										<div class="qty">2</div>
+									</a>
+								</div>--%>
+								
+                                <!-- Mi carrito -->
+                               <asp:Panel ID="PanelCart" runat="server">
+								    <div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+										<i class="fa fa-shopping-cart"></i>
+										<span>Mi Carrito</span>
+									</a>
+                                    <div class="cart-dropdown">
+										<div class="cart-list">
+                                    <table>
+                                    <asp:Repeater ID="Repeater1" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                        <td>
+                                          <div class="product-widget">
+												<div class="product-img">
+													<img src='<%# Eval("ImagenUrl") %>' alt="">
+												</div>
+												<div class="product-body">
+													<h3 class="product-name"><a href="#"> <%#Eval("ProductoNombre") %> </a></h3>
+													<h4 class="product-price"><span class="qty">x <%#Eval("Cantidad") %></span>$<%#Eval("PrecioUnitario") %></h4>
+												</div>
+											</div>
+                                            										
+                                        </td>
+                                            </tr>
+                                        </ItemTemplate>	
+                                        </asp:Repeater>
+                                           
+                                        </table>
+                                            </div>
+                                        </div>
+										<div class="cart-btns">
+                                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="PaginaVenta/clienteCarritoCompras.aspx">Ir al Carrito</asp:HyperLink>
+										</div>
+									</div>
+                               </asp:Panel>
+
+							</div>
+						</div>
+
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+		<!-- Contenido menu principal -->
+		<nav id="navigation">
+			<div class="container">
+				<div id="responsive-nav">
+					<ul class="main-nav nav navbar-nav">
+						<li class="active"><a id="inicio" runat="server" href="./index.aspx">Inicio</a></li>
+						<li><a href="/paginaTienda/clienteProductos.aspx">Productos</a></li>
+						<li><a href="/paginaTienda/clienteNosotros.aspx">Nosotros</a></li>
+						<li><a href="/paginaTienda/clienteContacto.aspx">Contacto</a></li>                      
+					</ul>
+                      
+				</div>
+			</div>
+		</nav>
+
+		<!-- Region titulo editable en index-->
+        <div style=" margin-left: auto; margin-right: auto">
+            <asp:ContentPlaceHolder ID="regionTitulo" runat="server"></asp:ContentPlaceHolder>
+        </div>
+        
+		<!-- Region contenido editable en index -->
+		<div class="section">
+			<div class="container">
+				<div class="row">
+                    <asp:ContentPlaceHolder ID="regionContenido" runat="server"></asp:ContentPlaceHolder>
+				</div>
+			</div>
+		</div>
+
+    	<!-- Newsletter -->
+		<div id="newsletter" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="newsletter">
+							<p>Suscríbase a nuestro <strong>NEWSLETTER</strong></p>
+									 <div class="product-details" >
+									   <div class="add-to-cart">
+										   <input class="input form-control center-block" id="textNewsletter" runat="server" style="width:350px" type="email" placeholder="Ingrese su correo electrónico">
+										   <br />
+										   <asp:Button ID="btnNewsletter" runat="server" CssClass="add-to-cart-btn" Text="Suscribirme" Font-Size="Smaller" OnClick="btnNewsletter_Click" />
+									   </div>
+									</div> 
+                            <br /><br />
+							<ul class="newsletter-follow">
+								<li><br />
+									<a href="https://www.facebook.com/boxlitcomputers"><i class="fa fa-facebook"></i></a>
+								</li>
+								<li>
+									<a href="https://www.twitter.com/boxlitcomputers"><i class="fa fa-twitter"></i></a>
+								</li>
+								<li>
+									<a href="https://www.instagram.com/boxlitcomputers"><i class="fa fa-instagram"></i></a>
+								</li>
+							</ul>
+                            </div>
+						</div>
+					</div>
+				</div>
+		</div>
+		
+		<!-- Contenido footer -->
+		<footer id="footer">
+			<div class="section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Nosostros</h3>
+								<ul class="footer-links">
+									<li><a ><i class="fa fa-phone"></i>(+54) 387 415 8782 </a></li>
+									<li><a ><i class="fa fa-envelope-o"></i>info@boxlitcomputers.com</a></li>
+								    <li><a ><i class="fa fa-map-marker"></i>Av. Belgrano 1800 - Salta</a></li>
+								</ul>
+							</div>
+						</div>
+                        
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Categorias</h3>
+								<ul class="footer-links">
+						            <li><a href="/paginaTienda/clienteProductos.aspx">Productos</a></li>
+						            <li><a href="/paginaTienda/clienteNosotros.aspx">Nosotros</a></li>
+						            <li><a href="/paginaTienda/clienteContacto.aspx">Contacto</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="clearfix visible-xs"></div>
+
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Informacion</h3>
+								<ul class="footer-links">
+									<li><a href="/paginaTienda/clienteGarantias.aspx">Garantia</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-md-3 col-xs-6">
+							<div class="footer">
+								<h3 class="footer-title">Soporte</h3>
+								<ul class="footer-links">
+									<li><a href="/paginaTienda/clientePedidoInfo.aspx"">Mi pedido</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="bottom-footer" class="section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<ul class="footer-payments">
+								<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+								<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+							</ul>
+							<span class="copyright">
+								Copyright &copy;<script>document.write(new Date().getFullYear());</script> Todos los Derechos Reservados | BOXLIT Computers
+							</span>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+    <!-- Estilos Java Script -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/slick.min.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/jquery.zoom.min.js"></script>
+	<script src="js/main.js"></script>
+
+    <!-- Activar seccion item menu pagina web -->
+    <script type="text/javascript">
+        $(function() {
+          // elementos de la lista
+          var menues = $(".nav li"); 
+
+          // manejador de click sobre todos los elementos
+          menues.click(function() {
+             // eliminamos active de todos los elementos
+             menues.removeClass("activee");
+             // activamos el elemento clicado.
+             $(this).addClass("activee");
+          });
+    });
+    </script>
+
+   	<!-- Region contenido editable Java Script en index -->
+    <asp:ContentPlaceHolder ID="regionScripts" runat="server">
+    </asp:ContentPlaceHolder>
+    
+  </form>
+
+</body>
+</html>
